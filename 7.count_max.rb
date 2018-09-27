@@ -4,8 +4,8 @@
 #              appears in the list
 # Prints:      Nothing
 
-require_relative "./max"
-require_relative "./count_in_list"
+require_relative "./1.max"
+require_relative "./6.count_in_list"
 
 def count_max(list)
     item_to_count = max(list)
