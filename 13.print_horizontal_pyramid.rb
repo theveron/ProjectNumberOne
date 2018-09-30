@@ -4,11 +4,23 @@
 # Prints: a pyramid consisting of "*" characters that is "n" characters tall at its tallest
 
 def print_horizontal_pyramid(height)
-    (1..height).each do |i|
-        puts "*"
-        (i..height).each do |y|
-            puts ""
+    i = 1
+    h= height
+    w= height
+
+    i.upto(h) do
+        w.times do
+            print ' '
         end
+
+        (2 * i - 1).times do
+            print '*'
+        end
+
+        print "\n"
+
+        w -= 1
+        i += 1
     end
 end
 

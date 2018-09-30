@@ -9,8 +9,8 @@
 require_relative "./8.sum"
 
 def mean(list)
-  puts total = sum(list)
-  puts total = total/list.count.to_f
+  total = sum(list)
+  total = total/list.count.to_f
   return total
 end
 
