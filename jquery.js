@@ -1,6 +1,7 @@
-//var users = '[{"id": "1", "first_name": "Truong", "last_name": "Tran", "sex": "1", "birthday": "1988-04-01", "phone": "090-1234-5678", "country": "vn", "note": ""  }]';
-
 var users = '{"title": "Users", "users":[{"id": "1", "first_name": "Truong", "last_name": "Tran", "sex": "1", "birthday": "1988-04-01", "phone": "090-1234-5678", "country": "vn", "note": "" }]}'
+
+response = $.parseJSON(users);
+console.log(response.users);
 
 $(function () {
     $.each(response.users, function (i, item) {
@@ -19,7 +20,7 @@ $(function () {
         }else {
           item.country = "Japan";
         }
-        console.log(i);
+
         $('<tr>').append(
         $('<td>').text(item.id),
         $('<td>').text(item.first_name + "" + item.last_name),
@@ -30,9 +31,37 @@ $(function () {
         $('<td>').text(item.note)).appendTo('#records_table');
     });
   
-    $( "form" ).submit(function( event ) {
-      console.log( $( this ).serializeObject() );
+    // $( "form" ).submit(function( event ) {
+    //   console.log( $( this ).serializeObject() );
 
-      //event.preventDefault();
-    });
+    //   //event.preventDefault();
+    // });
 });
+
+
+(function() {
+	function toJSONString( form ) {
+		var obj = {};
+		var elements = form.querySelectorAll( "input, select, textarea" );
+		for( var i = 0; i < elements.length; ++i ) {
+			var element = elements[i];
+			var name = element.name;
+			var value = element.value;
+
+			if( name ) {
+				obj[ name ] = value;
+			}
+		}
+		return JSON.stringify( obj );
+	}
+
+	document.addEventListener( "DOMContentLoaded", function() {
+		var form = document.getElementById( "user_form" );
+		form.addEventListener( "submit", function( e ) {
+			e.preventDefault();
+      var json = toJSONString( this );
+      console.log(json);
+		}, false);
+	});
+
+})();
