@@ -1,10 +1,9 @@
-var users = '[{"id": "1", "first_name": "Truong", "last_name": "Tran", "sex": "1", "birthday": "1988-04-01", "phone": "090-1234-5678", "country": "vn", "note": ""  }]';
+//var users = '[{"id": "1", "first_name": "Truong", "last_name": "Tran", "sex": "1", "birthday": "1988-04-01", "phone": "090-1234-5678", "country": "vn", "note": ""  }]';
 
-
-response = $.parseJSON(users);
+var users = '{"title": "Users", "users":[{"id": "1", "first_name": "Truong", "last_name": "Tran", "sex": "1", "birthday": "1988-04-01", "phone": "090-1234-5678", "country": "vn", "note": "" }]}'
 
 $(function () {
-    $.each(response, function (i, item) {
+    $.each(response.users, function (i, item) {
         if (item.sex == 1) {
           item.sex = "Male";
         }else if (item.sex == 0){
@@ -20,7 +19,7 @@ $(function () {
         }else {
           item.country = "Japan";
         }
-      
+        console.log(i);
         $('<tr>').append(
         $('<td>').text(item.id),
         $('<td>').text(item.first_name + "" + item.last_name),
