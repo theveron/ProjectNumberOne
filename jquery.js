@@ -26,31 +26,33 @@ var validName = (firstName, lastName) =>{
   var name = firstName + " " + lastName
   var values = name.split(' ').filter(function(v){return v!==''});
   if (firstName == "" || lastName == "") {
-    alert("Name must not be empty");
+    $("#name_e").text("Please input first name and last name");
     return false; 
   } else if ((firstName+lastName).length > 50) {
-    alert("Name must be maximum 50 characters");
+    $("#name_e").text("Name must be maximum 50 characters");
     return false;
   } else if (values.length > 2 ) {
-    alert("Name must not be more than 2 words");
+    $("#name_e").text("Name must not be more than 2 words");
     return false;
   } else if (/^[a-zA-Z\s]+$/.test(name) == false) {
-    alert("Name must be in alphabet format");
+    $("#name_e").text("Name must be in alphabet format");
     return false; 
   } else {
+    $("#name_e").text("");
     return true;
   }
 };
 
 var validPhone = (phone) => { 
   if (phone == "") {
-    alert("Phone must not be empty");
+    $("#phone_e").text("Phone must not be empty");
     return false; 
   } else if(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/.test(phone) == false) {
-    alert("Please input the correct phone format");
+    $("#phone_e").text("Please input the correct phone format");
     return false;
   }
   else {
+    $("#phone_e").text("");
     return true;
   }
 };
@@ -60,25 +62,27 @@ var validBirthday = (birthday) => {
   var givenDate = new Date(birthday);
   var regEx = /^\d{4}-\d{2}-\d{2}$/;
   if (birthday == "") {
-    alert("Birthday must not be empty");
+    $("#birthday_e").text("Birthday must not be empty");
     return false; 
   } 
   else if(!birthday.match(regEx)) {
-    alert("Please key in the correct format of birthday date");
+    $("#birthday_e").text("Please key in the correct format of birthday date");
     return false;
   } else if (givenDate > currentDate) {
-    alert("Birthday date is later than current date");
+    $("#birthday_e").text("Birthday date is later than current date");
     return false;
   } else {
+    $("#birthday_e").text("");
     return true;
   }
 };
 
 var validCountry = (country) => {
   if (country == null) {
-    alert("Please select a country");
+    $("#country_e").text("Please select a country");
     return false; 
   } else {
+    $("#country_e").text("");
     return true;
   }
 };
