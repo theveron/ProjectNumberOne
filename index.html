@@ -4,102 +4,106 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="jquery.js"></script>
 
-<div class="container">
+<div class="container" id="records">
   <br>
-<table id="records_table"  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Fullname</th>
-      <th>Sex</th>
-      <th>Birthday</th>
-      <th>Phone</th>
-      <th>Country</th>
-      <th>Note</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-  </tbody>
-</table>
+  <table id="records_table" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Fullname</th>
+        <th>Sex</th>
+        <th>Birthday</th>
+        <th>Phone</th>
+        <th>Country</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-repeat="users" class="user">
+        <td>{{id}}</td>
+        <td>{{first_name}} {{last_name}}</td>
+        <td v-html="const_sex[sex]"></td>
+        <td>{{birthday}}</td>
+        <td>{{phone}}</td>
+        <td v-html="const_country[country]"></td>
+        <td>{{note}}</td>
+      </tr>
+    </tbody>
+  </table>
 
-
-<form class="form-horizontal">
-  <div class="form-group">
-    <label for="first_name" class="col-sm-2 control-label">First Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required />
-      <span style="color:red" id="first_name_e"></span>
+  <form class="form-horizontal" id="user_form">
+    <div class="form-group">
+      <label for="first_name" class="col-sm-2 control-label">First Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="first_name" name="first_name" v-model="user.first_name" placeholder="First Name" />
+        <span style="color:red" id="first_name_e" v-model="validation.first_name">{{validation.first_name}}</span>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required />
-      <span style="color:red" id="last_name_e"></span>
+    <div class="form-group">
+      <label for="last_name" class="col-sm-2 control-label">Last Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="last_name" name="last_name" v-model="user.last_name" placeholder="Last Name" required />
+        <span style="color:red" id="first_name_e" v-model="validation.last_name">{{validation.last_name}}</span>
+      </div>
     </div>
-  </div>
-  <span style="color:red" id="name_e"></span>
+    <span style="color:red" id="first_name_e" v-model="validation.name">{{validation.name}}</span>
 
-  <div class="form-group">
-    <label for="sex" class="col-sm-2 control-label">Sex</label>
-    <div class="col-sm-10">
-      <label class="radio-inline">
-        <input type="radio" name="sex" value="1" checked="checked"> Male
+    <div class="form-group">
+      <label for="sex" class="col-sm-2 control-label">Sex</label>
+      <div class="col-sm-10">
+        <label class="radio-inline">
+        <input type="radio" name="sex" v-model="user.sex" value="1" checked="checked"> Male
       </label>
-      <label class="radio-inline">
-        <input type="radio" name="sex" value="0"> Female
+        <label class="radio-inline">
+        <input type="radio" name="sex" v-model="user.sex" value="0"> Female
       </label>
-      <label class="radio-inline">
-        <input type="radio" name="sex" value="2"> Others
+        <label class="radio-inline">
+        <input type="radio" name="sex" v-model="user.sex" value="2"> Others
       </label>
+      </div>
     </div>
-  </div>
-  
 
-  <div class="form-group">
-    <label for="birthday" class="col-sm-2 control-label">Birthday</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="birthday" name="birthday" placeholder="Birthday" required />
-      <span style="color:red" id="birthday_e"></span>
+    <div class="form-group">
+      <label for="birthday" class="col-sm-2 control-label">Birthday</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="birthday" name="birthday" v-model="user.birthday" placeholder="Birthday" required />
+        <span style="color:red" id="birthday_e" v-model="validation.birthday">{{validation.birthday}}</span>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="phone" class="col-sm-2 control-label">Phone</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" required />
-      <span style="color:red" id="phone_e"></span>
+    <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">Phone</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="phone" name="phone" v-model="user.phone" placeholder="Phone" required />
+        <span style="color:red" id="phone_e" v-model="validation.phone">{{validation.phone}}</span>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="country" class="col-sm-2 control-label">Country</label>
-    <div class="col-sm-10">
-      <select name="country" class="form-control" required>
+    <div class="form-group">
+      <label for="country" class="col-sm-2 control-label">Country</label>
+      <div class="col-sm-10">
+        <select v-model="user.country" name="country" class="form-control" required>
           <option value = "" disabled selected>Select your option</option>
           <option value = "jp">Japan</option>
           <option value = "ms">Malaysia</option>
           <option value = "vn">Vietnam</option>
       </select>
-      <span style="color:red" id="country_e"></span>
+        <span style="color:red" id="country_e" v-model="validation.country">{{validation.country}}</span>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="note" class="col-sm-2 control-label">Note</label>
-    <div class="col-sm-10">
-        <textarea rows="4" cols="50" class="form-control" id="note" name="note" placeholder="Note"></textarea>
+    <div class="form-group">
+      <label for="note" class="col-sm-2 control-label">Note</label>
+      <div class="col-sm-10">
+        <textarea rows="4" cols="50" class="form-control" id="note" name="note" v-model="user.note" placeholder="Note"></textarea>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Submit</button>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button v-on="click: submit" type="button" class="btn btn-default">Submit</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 </div>
-
-
