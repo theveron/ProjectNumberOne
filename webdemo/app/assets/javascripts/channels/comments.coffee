@@ -6,4 +6,6 @@ App.comments = App.cable.subscriptions.create "CommentsChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-    # Called when there's incoming data on the websocket for this channel
+    # received data which is the render template of the comments that we just set up in the broadcast method, basically just add that to the id commments div that we had set up earlier
+    # append that and the data comes in form of comment
+    $('#comments').append data.comment
